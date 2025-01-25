@@ -3,7 +3,7 @@ import cors from "cors" // importamos el modulo de cors para recibir peticiones 
 import { fileURLToPath } from "url" // para obtener las rutas del archivo actual
 import { dirname } from "path" // para obtener las rutas del directorio actual
 import { config } from "dotenv" // importamos dotenv para las variables de entorno
-
+import morgan from "morgan"
 //-----------------------------------------------------------------------------------
 config() // ejecutamos config
 const servidor = express() // ejecutamos la configuración de express
@@ -12,13 +12,10 @@ const __filename = fileURLToPath(import.meta.url)// para obtener las rutas del a
 const __dirname = dirname(__filename) // para obtener las rutas del directorio actual
 
 //------------Middleware--------------------------------------
-servidor.use(cors({
-    origin: "http://localhost:9000", // Cambia esto al origen de tu frontend
-    methods: ["GET", "POST", "PUT", "DELETE"], // Métodos permitidos
-    credentials: true // Si necesitas cookies o headers personalizados
-  })) // Usamos como middleware la funcion de cors
+servidor.use(cors()) // Usamos como middleware la funcion de cors
+  
 servidor.use(express.json()) // Usamos como middleware la funcion de express json para que interprete los datos que vienen como json
-
+servidor.use(morgan("dev"))
 
 
 
