@@ -14,11 +14,11 @@ export const get = async (req, res) => {
 export const post = async (req, res) => {
     const data = req.body;
     try {
-        const outgo = Outgo.findOne({ email: data.email });
+        const outgo = await Outgo.findOne({ id_employee: req.params.idEmployee });
         if (outgo) return res.status(400).json({ message: "Outgo already exists" });
 
-        const newEmployee = new Outgo(data);
-        await newEmployee.save();
+        const newOutgo = new Outgo(data);
+        await newOutgo.save();
 
         res.json({ message: "Outgo created successfully" });
     } catch (error) {

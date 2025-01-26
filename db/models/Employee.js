@@ -20,10 +20,10 @@ const employeeSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    estado: {
+    status: {
         type: String,
         enum: ["On Duty", "Off Duty", "On Patrol"],
-        default: "Inactive"
+        default: "Off Duty"
     },
     tel: {
         type: String,
