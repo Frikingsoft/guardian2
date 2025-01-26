@@ -1,8 +1,22 @@
-import { servidor } from "./config.js"
-import { inicio } from "./rutas/get/inicio.js"
-import { registro } from "./rutas/post/registro.js"
-import { validar_registro } from "./middleware/validar_registro.js"
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import routes from "./db/router/routes/index.js";
+import conectarDB from "./db/db.js";
+import morgan from "morgan";
 
-servidor.get("/",inicio)
-servidor.post("/registro",validar_registro,registro)
+dotenv.config();
+const app = express();
 
+app.use(cors());
+app.use(morgan('dev'));
+
+const PORT = process.env.PORT;
+const url = process.env.url
+conectarDB();
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port http://localhost:${PORT}`);
+});
+
+app.use("/api/v1", routes);
