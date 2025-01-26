@@ -14,11 +14,8 @@ export const get = async (req, res) => {
 export const post = async (req, res) => {
     const data = req.body;
     try {
-        const schedule = Schedule.findOne({ email: data.email });
-        if (schedule) return res.status(400).json({ message: "Schedule already exists" });
-
-        const newEmployee = new Schedule(data);
-        await newEmployee.save();
+        const newSchedule = new Schedule(data);
+        await newSchedule.save();
 
         res.json({ message: "Schedule created successfully" });
     } catch (error) {

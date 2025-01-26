@@ -14,10 +14,11 @@ export const get = async (req, res) => {
 export const post = async (req, res) => {
     const data = req.body;
     try {
-        const employee = Employee.findOne({ email: data.email });
+        const employee = await Employee.findOne({ email: data.email });
         if (employee) return res.status(400).json({ message: "Employee already exists" });
 
         const newEmployee = new Employee(data);
+        console.log(newEmployee)
         await newEmployee.save();
 
         res.json({ message: "Employee created successfully" });
@@ -27,11 +28,11 @@ export const post = async (req, res) => {
 }
 
 export const put = async (req, res) => {
-    const id = req.params.id;
-    const data = req.body;
+    const id = req.params.idEmployee;
+    const data = req.query;
 
     try {
-        const employee = await Employee.findByIdAndUpdate(req.params.id, data, { new: true });
+        const employee = await Employee.findOneAndUpdate({_id: id}, data, { new: true });
         res.status(200).json(employee);
     } catch (error) {
         res.status(500).json({ message: "Error updating employee" });
@@ -39,9 +40,9 @@ export const put = async (req, res) => {
 }
 
 export const deleteEmployee = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.idEmployee;
     try {
-        await Employee.findByIdAndDelete(id);
+        await Employee.findOneAndDelete({_id: id});
         return res.status(200).json({ message: "Employee deleted successfully" });
     } catch (error) {
         res.status(500).json({ message: "Error deleting employee" });

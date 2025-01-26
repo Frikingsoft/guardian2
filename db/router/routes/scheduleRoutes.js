@@ -5,7 +5,7 @@ const scheduleRouter = express.Router();
 
 scheduleRouter.get("/", get);
 scheduleRouter.post("/:idLocal", post);
-scheduleRouter.put("/:idEmployee", put);
-scheduleRouter.delete("/:idEmployee", deleteSchedule);
+scheduleRouter.put("/:idSchedule", put);
+scheduleRouter.delete("/:idSchedule", deleteSchedule);
 
 export default scheduleRouter;

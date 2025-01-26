@@ -39,11 +39,9 @@ export const get = async (req, res) => {
 export const post = async (req, res) => {
     const data = req.body;
     try {
-        const incident = Incident.findOne({ email: data.email });
-        if (incident) return res.status(400).json({ message: "Incident already exists" });
 
-        const newEmployee = new Incident(data);
-        await newEmployee.save();
+        const newIncident = new Incident(data);
+        await newIncident.save();
 
         res.json({ message: "Incident created successfully" });
     } catch (error) {
