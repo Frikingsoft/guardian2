@@ -1,7 +1,48 @@
-export const get = async (req, res) => { }
+import Schedule from "../../models/Schedule.js"
 
-export const post = async (req, res) => { }
+export const get = async (req, res) => {
+    try {
+        const schedules = await Schedule.find();
 
-export const put = async (req, res) => { }
+        res.json(schedules);
 
-export const deleteSchedule = async (req, res) => { }
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching employees" });
+    }
+}
+
+export const post = async (req, res) => {
+    const data = req.body;
+    try {
+        const schedule = Schedule.findOne({ email: data.email });
+        if (schedule) return res.status(400).json({ message: "Schedule already exists" });
+
+        const newEmployee = new Schedule(data);
+        await newEmployee.save();
+
+        res.json({ message: "Schedule created successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error creating schedule" });
+    }
+}
+export const put = async (req, res) => {
+    const id = req.params.id;
+    const data = req.body;
+
+    try {
+        const schedule = await Schedule.findByIdAndUpdate(req.params.id, data, { new: true });
+        res.status(200).json(schedule);
+    } catch (error) {
+        res.status(500).json({ message: "Error updating schedule" });
+    }
+}
+
+export const deleteSchedule = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await Schedule.findByIdAndDelete(id);
+        return res.status(200).json({ message: "Schedule deleted successfully" });
+    } catch (error) {
+        res.status(500).json({ message: "Error deleting schedule" });
+    }
+}
