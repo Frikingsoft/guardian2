@@ -1,22 +1,20 @@
 import { conectarDB } from "../../db/db.js"
-import { Usuarios } from "../../db/usuarios.js"
+import { Employee } from "../../db/models/Employee.js"
 import bcrypt from "bcryptjs"
 conectarDB()
 const registro = async(req,res)=>{
     let { usuario, correo , contra } = req.body
     
-    let buscar_usuario = await Usuarios.findOne({correo})
-    let todos = await Usuarios.find({})
+    let search_employee = await Employee.findOne({email})
+    let todos = await Employee.find({})
     console.log(todos)
-    if(buscar_usuario === null){
+    if(search_employee === null){
         contra = await bcrypt.hash(contra, 10)
         let nuevoUsuario = {
-            usuario,
-            correo,
-            contra,
-            rol:"usuario"
+            
+            
         }
-        let usuarioDB = new Usuarios(nuevoUsuario)
+        let usuarioDB = new Employee(nuevoUsuario)
         usuarioDB.save()
         res.json({mensaje:"Usuario guardado"})
     }
