@@ -1,7 +1,9 @@
 
 
-const validar_registro = (req, res, next) => {
-   let { usuario,correo,contra, repetir_contra } = req.body 
+const registro = (req, res, next) => {
+    console.log(req.body)
+    res.status(200).send("ok")
+   /*let { usuario,correo,contra, repetir_contra } = req.body 
    usuario = usuario.toLowerCase()
    correo = correo.toLowerCase()
 
@@ -70,7 +72,7 @@ const validar_registro = (req, res, next) => {
         }
    }
    verificar_hack() && verificar_correo() && verificar_usuario() && verificar_contra() ? next() : res.status(400).json({mensaje:"Verifique que el Usuario y la Contraseña sean correctos"})
-   
+ */  
 }
 
 
@@ -78,5 +80,5 @@ const desencriptar_contra = (contra) => {
    
 }
 export{
-    validar_registro
+    registro
 }

@@ -4,10 +4,11 @@ import incidentRoutes from "./incidentRoutes.js"
 import localRoutes from "./localRoutes.js"
 import outgoRoutes from "./outgoRoutes.js"
 import scheduleRoutes from "./scheduleRoutes.js"
-
+import  loginRoutes from "./loginRoutes.js"
 const routes = express.Router();
 
 routes.use("/employees", employeeRoutes)
+routes.use("/login", loginRoutes)
 routes.use("/incidents", incidentRoutes)
 routes.use("/locals", localRoutes)
 routes.use("/outgoings", outgoRoutes)
