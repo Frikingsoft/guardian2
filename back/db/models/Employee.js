@@ -22,7 +22,7 @@ const employeeSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["On Duty", "Off Duty", "On Patrol"],
+        enum: ["On Duty", "Off Duty", "On Patrol", "On Break"],
         default: "Off Duty"
     },
     tel: {

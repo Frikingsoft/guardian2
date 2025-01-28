@@ -5,8 +5,8 @@
                         <q-avatar size="64px" font-size="48px"  class="avatar" text-color="blue-9" icon="mdi-account-check-outline" />
                     </q-card-section>
                     <q-card-section class="col-12 flex flex-center row">
-                        <q-input v-model="email" type="text"  text-color="white" placeholder="Ingrese el correo" class="col-10 entradas" color="blue-9"/>
-                        <q-input v-model="password" type="password" placeholder="Ingrese la contraseña" class="col-10 entradas q-mt-md" color="blue-9"/>
+                        <q-input v-model="email" type="text"  text-color="white" placeholder="Ingrese el correo" class="col-10 entradas" color="blue-9" :input-style="{ color: 'white' }"/>
+                        <q-input v-model="password" type="password" placeholder="Ingrese la contraseña" class="col-10 entradas q-mt-md" color="blue-9" :input-style="{ color: 'white' }"/>
                     </q-card-section>
                     <q-card-section class="col-12 flex justify-evenly row q-mt-xl">
                         <q-btn class="boton text-white" glossy label="Enviar"/>

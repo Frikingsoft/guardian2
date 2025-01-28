@@ -1,35 +1,46 @@
+import employee from "../../models/Employee.js"
+const registroController = async(req, res, next) => {
+   let { name ,lastname,tel, address,email,password,password2 } = req.body 
+   let buscar_empleado = await employee.findOne({ email: email })
+   if(buscar_empleado===null){
+   name = name.toLowerCase()
+   lastname = lastname.toLowerCase()
+   email = email.toLowerCase()
+   address = address.toLowerCase()
 
-
-const registro = (req, res, next) => {
-    console.log(req.body)
-    res.status(200).json({mensaje:"ok"})
-   /*let { usuario,correo,contra, repetir_contra } = req.body 
-   usuario = usuario.toLowerCase()
-   correo = correo.toLowerCase()
-
-   let validar_usuario=false ,validar_correo = false ,validar_contra = false ,validar_hack={
-    usuario: false,
+   let validar_nombre=false ,validar_apellido=false,validar_telefono, validar_correo = false ,validar_contra = false ,validar_hack={
+    nombre: false,
+    apellido: false,
+    telefono: false,
+    direccion:false,
     correo: false,
     contra: false,
     repetir_contra: false,
-   },
-   validar=false
+   }
+   let validar = false
    const verificar_hack=()=>{
     const regex = /(script|<|>)/i
-        regex.test(usuario) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en el nombre'}) : validar_hack.usuario = true
-        regex.test(correo) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en el correo'}) : validar_hack.correo = true
-        regex.test(contra) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en la contraseña'}) : validar_hack.contra = true
-        regex.test(repetir_contra) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en repetir contraseña'}) : validar_hack.repetir_contra = true
+        regex.test(name) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en el nombre'}) : validar_hack.usuario = true
+        regex.test(lastname) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en el apellido'}) : validar_hack.apellido = true
+        regex.test(tel) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en el telefono'}) : validar_hack.telefono = true
+        regex.test(address) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en la dirección'}) : validar_hack.direccion = true
+        regex.test(email) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en el correo'}) : validar_hack.correo = true
+        regex.test(password) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en la contraseña'}) : validar_hack.contra = true
+        regex.test(password2) ? res.status(400).json({ mensaje: 'No se permiten caracteres especiales en repetir contraseña'}) : validar_hack.repetir_contra = true
         if(validar_hack.usuario && validar_hack.contra && validar_hack.correo && validar_hack.repetir_contra){
             validar=true
+        }
+        else{
+            validar=false
         }
         return true
         
     }
-    const verificar_usuario = () => {
+    verificar_hack()
+   const verificar_nombre = () => {
         const regex = /[a-zA-Z]{5,}/
-        if(regex.test(usuario)){
-            validar_usuario= true
+        if(regex.test(name)){
+            validar_nombre= true
             return true
         }
         else{
@@ -37,9 +48,30 @@ const registro = (req, res, next) => {
             return false
         }
     }
+    const verificar_apellido = () => {
+        const regex = /[a-zA-Z]{5,}/
+        if(regex.test(lastname)){
+            validar_apellido= true
+            return true
+        }
+        else{
+            res.status(400).json({ mensaje: 'El nombre de usuario debe tener al menos 5 caracteres'})
+            return false
+        }
+    }
+    const verificar_telefono = () => {
+        const regex = /^\d+$/
+        if(regex.test(tel)){
+            validar_telefono= true
+            return true
+        }
+        else{
+            res.status(400).json({ mensaje: 'El telefono debe ser unicamente numeros'})
+        }
+    }
     const verificar_correo = ()=>{
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        if(regex.test(correo)){
+        if(regex.test(email)){
             validar_correo = true
             return true
         }
@@ -50,10 +82,10 @@ const registro = (req, res, next) => {
         
         
     }
-   const verificar_contra  =async()=>{
-       if(contra === repetir_contra){
+   const verificar_contra  =()=>{
+       if(password === password2){
            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w<>])[\w!@#$%^&*]{6,}$/
-           if(regex.test(contra)){
+           if(regex.test(password)){
                 validar_contra = true
                 return true
            }
@@ -71,14 +103,18 @@ const registro = (req, res, next) => {
             return true
         }
    }
-   verificar_hack() && verificar_correo() && verificar_usuario() && verificar_contra() ? next() : res.status(400).json({mensaje:"Verifique que el Usuario y la Contraseña sean correctos"})
- */  
+   if(validar && verificar_hack() && verificar_nombre() && verificar_apellido() && verificar_telefono() &&  verificar_correo()  && verificar_contra()){
+        next()
+    }
+}   
+ 
+
+else{
+    res.status(400).json("El usuario ya existe")
+}
 }
 
 
-const desencriptar_contra = (contra) => {
-   
-}
 export{
-    registro
+    registroController
 }

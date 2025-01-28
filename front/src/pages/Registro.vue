@@ -8,15 +8,28 @@
                 :bar-style="barStyle" 
                 style="height: 400px;  overflow: hidden;" class="col-12 coso">
                 <div class="scroll-content">
-                    <q-input v-model="name" type="text" text-color="white" placeholder="Ingrese su nombre" class="col-10 entradas" color="blue-9"/>
-                    <q-input v-model="lastname" type="text" text-color="white" placeholder="Ingrese su apellido" class="col-10 entradas q-mt-md" color="blue-9"/>
-                    <q-input v-model="tel" type="text" placeholder="Ingrese su telefono" class="col-10 entradas q-mt-md" color="blue-9"/>
-                    <q-input v-model="address" type="text" placeholder="Ingrese su dirección" class="col-10 entradas q-mt-md" color="blue-9"/>
-                    <q-input v-model="email" type="email" text-color="white" placeholder="Ingrese su correo" class="col-10 entradas q-mt-md" color="blue-9"/>
-                    <q-input v-model="password" type="password" text-color="white" placeholder="Ingrese su contraseña" class="col-10 entradas q-mt-md" color="blue-9"/>
-                    <q-input v-model="password2" type="password" text-color="white" placeholder="Repita su contraseña" class="col-10 entradas q-mt-md" color="blue-9"/>
+                    <q-input v-model="name" type="text"  placeholder="Ingrese su nombre" class="col-10 entradas" color="blue-9" :input-style="{ color: 'white' }"/>
+                    <q-input v-model="lastname" type="text"  placeholder="Ingrese su apellido" class="col-10 entradas q-mt-md" color="blue-9" :input-style="{ color: 'white' }"/>
+                    <q-input v-model="tel" type="text" placeholder="Ingrese su telefono" class="col-10 entradas q-mt-md" color="blue-9" :input-style="{ color: 'white' }"/>
+                    <q-input v-model="address" type="text" placeholder="Ingrese su dirección" class="col-10 entradas q-mt-md" color="blue-9" :input-style="{ color: 'white' }"/>
+                    <q-input v-model="email" type="email"  placeholder="Ingrese su correo" class="col-10 entradas q-mt-md" color="blue-9" :input-style="{ color: 'white' }"/>
+                    <q-input v-model="password" type="password"  placeholder="Ingrese su contraseña" class="col-10 entradas q-mt-md" color="blue-9" :input-style="{ color: 'white' }"/>
+                    <q-input v-model="password2" type="password"  placeholder="Repita su contraseña" class="col-10 entradas q-mt-md" color="blue-9" :input-style="{ color: 'white' }"/>
                 </div>
             </q-scroll-area>
+              <q-dialog v-model="confirm" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <q-avatar icon="fas fa-exclamation" color="primary" text-color="white"  class="q-mb-md"/>
+          <span class="q-ml-sm">{{ mensaje }}</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="OK" color="primary" v-close-popup />
+          
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
         </q-card-section>
         <q-card-section class="col-12 flex justify-evenly row q-mt-md">
             <q-btn class="boton text-white" glossy label="Enviar" @click="enviar"/>
@@ -37,6 +50,8 @@ const address = ref("")
 const email = ref("")
 const password = ref("")
 const password2 = ref("")
+const confirm = ref(false)
+let mensaje = ref("")
 const thumbStyle = ref({
     right: '4px',
     borderRadius: '5px',
@@ -73,7 +88,17 @@ const enviar =()=>{
         body: JSON.stringify(empleado.value) 
       })
       .then(response => response.json())
-      .then(data => data)
+      .then(data => {
+        if(data.mensaje === "Empleado creado con exito"){
+            router.push("/login")
+        }
+        else{
+            confirm.value = true
+            mensaje.value = data.mensaje
+         
+        }
+      })
+     
 } 
 </script>
 
@@ -109,4 +134,5 @@ const enviar =()=>{
     height: 30px;
     box-shadow: 2px 2px 4px rgb(17, 139, 222), 3px 3px 5px rgb(13, 104, 165);
 }
+
 </style>
