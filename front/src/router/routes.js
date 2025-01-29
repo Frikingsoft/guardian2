@@ -14,6 +14,13 @@ const routes = [
     ]
   },
   {
+    path: '/locals',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Locals.vue') }
+    ]
+  },
+  {
     path: '/locals/create',
     component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -21,10 +28,38 @@ const routes = [
     ]
   },
   {
+    path: '/outgoings',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Outgoings.vue') }
+    ]
+  },
+  {
+    path: '/incidents',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Incidents.vue') }
+    ]
+  },
+  {
     path: '/outgoings/create',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/CreateOutgo.vue') }
+    ]
+  },
+  {
+    path: '/schedules',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Schedules.vue') }
+    ]
+  },
+  {
+    path: '/employees',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Employees.vue') }
     ]
   },
   {
