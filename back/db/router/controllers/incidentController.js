@@ -2,7 +2,13 @@ import Incident from "../../models/Incident.js"
 
 export const get = async (req, res) => {
     try {
-
+        if (req.params.id) {
+            const incident = await Incident.findOne({ _id: req.params.id })
+            if (!incident) {
+                return res.status(404).json({ message: "Egreso no existe" })
+            }
+            return res.json(incident)
+        }
         // const { filter, search, page } = req.query;
 
         // const current_page = Number(page ? page : 1);

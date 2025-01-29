@@ -2,6 +2,13 @@ import Employee from "../../models/Employee.js"
 
 export const get = async (req, res) => {
     try {
+        if (req.params.id) {
+            const employee = await Employee.findOne({ _id: req.params.id })
+            if (!employee) {
+                return res.status(404).json({ message: "Egreso no existe" })
+            }
+            return res.json(employee)
+        }
         const employees = await Employee.find();
 
         res.json(employees);
@@ -32,7 +39,7 @@ export const put = async (req, res) => {
     const data = req.query;
 
     try {
-        const employee = await Employee.findOneAndUpdate({_id: id}, data, { new: true });
+        const employee = await Employee.findOneAndUpdate({ _id: id }, data, { new: true });
         res.status(200).json(employee);
     } catch (error) {
         res.status(500).json({ message: "Error updating employee" });
@@ -42,7 +49,7 @@ export const put = async (req, res) => {
 export const deleteEmployee = async (req, res) => {
     const id = req.params.idEmployee;
     try {
-        await Employee.findOneAndDelete({_id: id});
+        await Employee.findOneAndDelete({ _id: id });
         return res.status(200).json({ message: "Employee deleted successfully" });
     } catch (error) {
         res.status(500).json({ message: "Error deleting employee" });

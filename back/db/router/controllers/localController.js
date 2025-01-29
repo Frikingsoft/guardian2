@@ -2,12 +2,19 @@ import Local from "../../models/Local.js"
 
 export const get = async (req, res) => {
     try {
+        if (req.params.id) {
+            const local = await Local.findOne({ _id: req.params.id })
+            if (!local) {
+                return res.status(404).json({ message: "Local no existe" })
+            }
+            return res.json(local)
+        }
         const locals = await Local.find();
 
         res.json(locals);
 
     } catch (error) {
-        res.status(500).json({ message: "Error fetching employees" });
+        res.status(500).json({ message: "Error fetching locals" });
     }
 }
 

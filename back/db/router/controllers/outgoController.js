@@ -2,6 +2,13 @@ import Outgo from "../../models/Outgo.js"
 
 export const get = async (req, res) => {
     try {
+        if (req.params.id) {
+            const outgo = await Outgo.findOne({ _id: req.params.id })
+            if (!outgo) {
+                return res.status(404).json({ message: "Egreso no existe" })
+            }
+            return res.json(outgo)
+        }
         const outgoings = await Outgo.find();
 
         res.json(outgoings);

@@ -14,59 +14,46 @@ const routes = [
     ]
   },
   {
-    path: '/locals',
+    path: '/locals/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Locals.vue') }
+      { path: '', component: () => import('pages/Locals.vue') },
+      { path: ':id', component: () => import('pages/LocalDetail.vue') },
+      { path: 'create', component: () => import('pages/CreateLocal.vue') }
     ]
   },
   {
-    path: '/locals/create',
+    path: '/outgoings/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/CreateLocal.vue') }
+      { path: '', component: () => import('pages/Outgoings.vue') },
+      { path: ':id', component: () => import('pages/OutgoDetail.vue') },
+      { path: 'create', component: () => import('pages/CreateOutgo.vue') },
     ]
   },
   {
-    path: '/outgoings',
+    path: '/incidents/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Outgoings.vue') }
+      { path: '', component: () => import('pages/Incidents.vue') },
+      { path: ':id', component: () => import('pages/IncidentDetail.vue') }
     ]
   },
   {
-    path: '/incidents',
+    path: '/schedules/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Incidents.vue') }
-    ]
-  },
-  {
-    path: '/outgoings/create',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/CreateOutgo.vue') }
-    ]
-  },
-  {
-    path: '/schedules',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Schedules.vue') }
+      { path: '', component: () => import('pages/Schedules.vue') },
+      { path: ':id', component: () => import('pages/ScheduleDetail.vue') },
+      { path: 'create', component: () => import('pages/CreateSchedule.vue') }
     ]
   },
   {
     path: '/employees',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Employees.vue') }
-    ]
-  },
-  {
-    path: '/schedules/create',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/CreateSchedule.vue') }
+      { path: '', component: () => import('pages/Employees.vue') },
+      { path: ':id', component: () => import('pages/EmployeeDetail.vue') }
     ]
   },
   {

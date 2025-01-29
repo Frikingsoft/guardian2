@@ -2,6 +2,13 @@ import Schedule from "../../models/Schedule.js"
 
 export const get = async (req, res) => {
     try {
+        if (req.params.id) {
+            const schedule = await Schedule.findOne({ _id: req.params.id })
+            if (!schedule) {
+                return res.status(404).json({ message: "Egreso no existe" })
+            }
+            return res.json(schedule)
+        }
         const schedules = await Schedule.find();
 
         res.json(schedules);
