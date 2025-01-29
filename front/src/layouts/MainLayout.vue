@@ -6,14 +6,28 @@
       v-model="abrir_menu"
       overlay
       bordered
+      style="background: radial-gradient(circle,rgb(7, 48, 90) 0%,rgb(10, 17, 50) 50%, rgba(0, 4, 7, 0.9) 100%);
+      background-size: 400% 400%; 
+      animation: animar 20s ease-in-out infinite;"
     >
       <q-list>
         <q-item-label
           header
         >
-          Essential Links
+          <q-avatar v-if="!usuario" color="red" text-color="white" icon="fas fa-user"/>
         </q-item-label>
-
+        <q-item-label v-if="!usuario" class="row">
+             <q-btn outline color="primary" label="Login" icon="cloud_upload" class="col-12" @click="login"/>
+             <q-btn outline color="primary" label="Registro" icon="cloud_upload" class="col-12" @click="registro"/>
+        </q-item-label>
+        <template v-slot:default v-if="usuario">
+          <q-item-label>
+             <q-avatar size=64px color="primary" text-color="white">{{ inicial_usuario }}</q-avatar>
+          </q-item-label>
+          <q-item-label  v-for="opcion in opciones" :key="opcion.id">
+                 <q-btn outline color="primary" :label="opcion.nombre" icon="cloud_upload"/>
+          </q-item-label>
+        </template>
       </q-list>
     </q-drawer>
     </q-header>
@@ -32,10 +46,31 @@
 
 <script setup>
 import Menufinal from "../components/Menufinal.vue"
-import { ref } from 'vue'
+import { computed, provide, ref } from 'vue'
+import { useRouter } from "vue-router"
+const router = useRouter()
 const abrir_menu = ref(false)
+const mensaje = ref("")
+const usuario = ref(null)
+const opciones = ref([
+  { id:0 , nombre:"Pefil" ,icono:"", ruta:"/perfil"},
+  { id:1, nombre:"Próxima Guardia" ,icono:"", ruta:"/perfil"},
+  
+])
+provide("usuario",usuario)
+provide("mensaje",mensaje)
+const inicial_usuario = computed(()=>{
+  return usuario.value?.name ? usuario.value.name.charAt(0).toUpperCase() : '';
+})
+const login = () => {
+  router.push("/login")
+}
+const registro = () => {
+  router.push("/registro")
+}
 </script>
 <style scoped>
+ 
   .fondo_guardian{
     position: absolute;
     width: 100%;
@@ -113,4 +148,5 @@ const abrir_menu = ref(false)
         }   
 
     }
+
 </style>

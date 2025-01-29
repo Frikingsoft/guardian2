@@ -5,19 +5,34 @@
                         <q-avatar size="64px" font-size="48px"  class="avatar" text-color="blue-9" icon="mdi-account-check-outline" />
                     </q-card-section>
                     <q-card-section class="col-12 flex flex-center row">
-                        <q-input v-model="email" type="text"  text-color="white" placeholder="Ingrese el correo" class="col-10 entradas" color="blue-9" :input-style="{ color: 'white' }"/>
+                        <q-input v-model="email" type="text"  placeholder="Ingrese el correo" class="col-10 entradas" color="blue-9" :input-style="{ color: 'white' }"/>
                         <q-input v-model="password" type="password" placeholder="Ingrese la contraseña" class="col-10 entradas q-mt-md" color="blue-9" :input-style="{ color: 'white' }"/>
                     </q-card-section>
                     <q-card-section class="col-12 flex justify-evenly row q-mt-xl">
                         <q-btn class="boton text-white" glossy label="Enviar" @click="enviar"/>
                         <q-btn class="boton text-white q-ml-md" glossy label="Registro" @click="registro"/>
                     </q-card-section>   
+                    <q-dialog v-model="confirm" persistent>
+                        <q-card>
+                            <q-card-section class="row items-center">
+                                <q-avatar icon="fas fa-exclamation" color="primary" text-color="white"  class="q-mb-md"/>
+                                <span class="q-ml-sm">{{ mensaje }}</span>
+                            </q-card-section>
+                            <q-card-actions align="right">
+                                <q-btn flat label="OK" color="primary" v-close-popup />
+                            </q-card-actions>
+                        </q-card>
+                    </q-dialog>
         </q-card>
     </q-page>
 </template>
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router"    
+import { inject, ref } from "vue";
+import { useRouter } from "vue-router"   
+    const token = ref(null)
+    const confirm = ref(false)
+    const mensaje = inject("mensaje") 
+    const usuario = inject("usuario")
     const email = ref("")
     const password = ref("")
     const router = useRouter()
@@ -37,7 +52,17 @@ import { useRouter } from "vue-router"
         body: JSON.stringify(empleado.value) 
       })
       .then(response => response.json())
-      .then(data => console.log(data.mensaje))
+      .then(data => {
+        mensaje.value = data.mensaje
+        usuario.value = data.usuario
+        token.value = data.token
+        if(mensaje.value === "Acceso"){
+            router.push("/")
+        }
+        else{
+            confirm.value = true
+        }
+      })
     }
 </script>
 <style scoped>
