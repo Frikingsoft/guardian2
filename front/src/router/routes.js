@@ -19,6 +19,7 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Locals.vue') },
       { path: ':id', component: () => import('pages/LocalDetail.vue') },
+      { path: 'edit/:id', component: () => import('pages/EditLocal.vue') },
       { path: 'create', component: () => import('pages/CreateLocal.vue') }
     ]
   },
@@ -45,15 +46,17 @@ const routes = [
     children: [
       { path: '', component: () => import('pages/Schedules.vue') },
       { path: ':id', component: () => import('pages/ScheduleDetail.vue') },
+      { path: 'edit/:id', component: () => import('pages/EditSchedule.vue') },
       { path: 'create', component: () => import('pages/CreateSchedule.vue') }
     ]
   },
   {
-    path: '/employees',
+    path: '/employees/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Employees.vue') },
-      { path: ':id', component: () => import('pages/EmployeeDetail.vue') }
+      { path: ':id', component: () => import('pages/EmployeeDetail.vue') },
+      { path: 'edit/:id', component: () => import('pages/EditEmployee.vue') }
     ]
   },
   {
