@@ -1,22 +1,7 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import routes from "./db/router/routes/index.js";
-import conectarDB from "./db/db.js";
-import morgan from "morgan";
-
-dotenv.config();
-const app = express();
-
-app.use(cors());
-app.use(morgan('dev'));
-app.use(express.json())
-const PORT = process.env.PORT;
-const url = process.env.url
-conectarDB();
-
-app.listen(PORT, () => {
-    console.log(`Server is running on port http://localhost:${PORT}`);
-});
-
-app.use("/", routes);
+import { servidor } from './config.js'
+import { inicio } from "./rutas/get/inicio.js"
+import { controlador_inicio } from "./middleware/controlador_inicio.js"
+import { login_empleado } from "./rutas/post/login_empleado.js"
+import { controlador_login_empleado } from "./middleware/controlador_login_empleado.js"
+servidor.get("/",controlador_inicio,inicio)
+servidor.post("/login_empleado",controlador_login_empleado,login_empleado)

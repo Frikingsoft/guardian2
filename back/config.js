@@ -4,6 +4,8 @@ import { fileURLToPath } from "url" // para obtener las rutas del archivo actual
 import { dirname } from "path" // para obtener las rutas del directorio actual
 import { config } from "dotenv" // importamos dotenv para las variables de entorno
 import morgan from "morgan"
+import useragent from 'express-useragent'
+import path from "path"
 //-----------------------------------------------------------------------------------
 config() // ejecutamos config
 const servidor = express() // ejecutamos la configuración de express
@@ -13,11 +15,21 @@ const __dirname = dirname(__filename) // para obtener las rutas del directorio a
 
 //------------Middleware--------------------------------------
 servidor.use(cors()) // Usamos como middleware la funcion de cors
-  
+
 servidor.use(express.json()) // Usamos como middleware la funcion de express json para que interprete los datos que vienen como json
 servidor.use(morgan("dev"))
+servidor.use(useragent.express());
 
-
+servidor.get('/', (req, res) => {
+    if (req.useragent.isMobile) {
+        res.send('¡Hola! Parece que estás usando un dispositivo móvil.');
+    } else if (req.useragent.isDesktop) {
+        servidor.use("/",express.static(path.join(__dirname, '../front/Login/dist/spa')))
+        res.sendFile(path.join(__dirname, '../front/Login/dist/spa/index.html'))
+    } else {
+        res.send('¡Hola! No estoy seguro de qué dispositivo estás usando.');
+    }
+});
 
 
 export{

@@ -1,0 +1,1 @@
+import{Q as e}from"./QPage-BDM0L7Pq.js";import{_ as r}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{q as o,v as c}from"./index-DzRVY70d.js";import"./render-wEgRYB86.js";const t={};function a(s,n){return o(),c(e,{class:"flex flex-center"})}const i=r(t,[["render",a]]);export{i as default};

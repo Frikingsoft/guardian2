@@ -21,6 +21,6 @@ const comparar_contra =async(password,hash)=>{
     const coincide = await bcrypt.compare(password, hash)
     return coincide
 }
-export{
+export {
     loginController
 }
