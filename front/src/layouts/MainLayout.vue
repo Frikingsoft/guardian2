@@ -6,6 +6,9 @@
       v-model="abrir_menu"
       overlay
       bordered
+      style="background: radial-gradient(circle,rgb(7, 48, 90) 0%,rgb(10, 17, 50) 50%, rgba(0, 4, 7, 0.9) 100%);
+      background-size: 400% 400%; 
+      animation: animar 20s ease-in-out infinite;"
     >
       <q-list>
         <q-item-label
@@ -32,10 +35,15 @@
 
 <script setup>
 import Menufinal from "../components/Menufinal.vue"
-import { ref } from 'vue'
+import { provide, ref } from 'vue'
 const abrir_menu = ref(false)
+const mensaje = ref("")
+const usuario = ref(null)
+provide("usuario",usuario)
+provide("mensaje",mensaje)
 </script>
 <style scoped>
+ 
   .fondo_guardian{
     position: absolute;
     width: 100%;
@@ -113,4 +121,5 @@ const abrir_menu = ref(false)
         }   
 
     }
+
 </style>

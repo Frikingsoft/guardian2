@@ -51,6 +51,7 @@ const email = ref("")
 const password = ref("")
 const password2 = ref("")
 const confirm = ref(false)
+const color = red
 let mensaje = ref("")
 const thumbStyle = ref({
     right: '4px',
@@ -111,7 +112,7 @@ const enviar =()=>{
     max-width: 500px;
     height: 60vh;
     background-color: transparent;
-   
+ 
   
 }
 .scroll-content {

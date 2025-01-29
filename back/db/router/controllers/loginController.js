@@ -8,6 +8,9 @@ const loginController = async (req, res, next) => {
         if (comparar){
             next()
         }
+        else{
+            res.status(401).json({mensaje: "Contraseña incorrecta"})
+        }
     }
     else{
         res.status(404).json({mensaje: "Usuario no encontrado"})
