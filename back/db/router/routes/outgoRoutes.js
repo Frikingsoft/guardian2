@@ -4,7 +4,7 @@ import { get, post, put } from '../controllers/outgoController.js';
 const outgoRouter = express.Router();
 
 outgoRouter.get("/", get);
-outgoRouter.post("/:idEmployee", post);
+outgoRouter.post("/", post);
 outgoRouter.put("/:idEmployee", put);
 // outgoRouter.delete("/:idEmployee", deleteOutgo);
 

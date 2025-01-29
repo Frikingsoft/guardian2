@@ -13,6 +13,7 @@ export const get = async (req, res) => {
 
 export const post = async (req, res) => {
     const data = req.body;
+    console.log(data)
     try {
         const local = await Local.findOne({ name: data.name });
         if (local) return res.status(400).json({ message: "Local already exists" });
@@ -46,7 +47,7 @@ export const put = async (req, res) => {
 export const deleteLocal = async (req, res) => {
     const id = req.params.idLocal;
     try {
-        await Local.findOneAndDelete({_id: id});
+        await Local.findOneAndDelete({ _id: id });
         return res.status(200).json({ message: "Local deleted successfully" });
     } catch (error) {
         res.status(500).json({ message: "Error deleting employee" });

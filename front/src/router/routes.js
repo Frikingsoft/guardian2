@@ -14,6 +14,27 @@ const routes = [
     ]
   },
   {
+    path: '/locals/create',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/CreateLocal.vue') }
+    ]
+  },
+  {
+    path: '/outgoings/create',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/CreateOutgo.vue') }
+    ]
+  },
+  {
+    path: '/schedules/create',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/CreateSchedule.vue') }
+    ]
+  },
+  {
     path: '/registro',
     component: () => import('layouts/MainLayout.vue'),
     children: [

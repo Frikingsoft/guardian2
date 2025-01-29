@@ -18,6 +18,12 @@ const scheduleSchema = new mongoose.Schema({
     time_patrol_end: {
         type: Date
     },
+    schedule_start: {
+        type: String
+    },
+    schedule_end: {
+        type: String
+    },
     date: {
         type: Date,
         required: true
