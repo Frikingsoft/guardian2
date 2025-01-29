@@ -14,7 +14,7 @@ export const get = async (req, res) => {
 export const post = async (req, res) => {
     const data = req.body;
     try {
-        const outgo = await Outgo.findOne({ id_employee: req.params.idEmployee });
+        const outgo = await Outgo.findOne({ id_employee: data.id_employee });
         if (outgo) return res.status(400).json({ message: "Outgo already exists" });
 
         const newOutgo = new Outgo(data);
