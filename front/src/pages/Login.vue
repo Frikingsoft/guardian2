@@ -9,7 +9,7 @@
                         <q-input v-model="password" type="password" placeholder="Ingrese la contraseña" class="col-10 entradas q-mt-md" color="blue-9" :input-style="{ color: 'white' }"/>
                     </q-card-section>
                     <q-card-section class="col-12 flex justify-evenly row q-mt-xl">
-                        <q-btn class="boton text-white" glossy label="Enviar"/>
+                        <q-btn class="boton text-white" glossy label="Enviar" @click="enviar"/>
                         <q-btn class="boton text-white q-ml-md" glossy label="Registro" @click="registro"/>
                     </q-card-section>   
         </q-card>
@@ -23,6 +23,21 @@ import { useRouter } from "vue-router"
     const router = useRouter()
     const registro = () => {
         router.push("/registro")
+    }
+    const enviar = () => {
+    let empleado = ref({
+        email: email.value,
+        password: password.value
+    })     
+    fetch("http://localhost/login", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(empleado.value) 
+      })
+      .then(response => response.json())
+      .then(data => console.log(data.mensaje))
     }
 </script>
 <style scoped>
