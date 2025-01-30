@@ -62,6 +62,8 @@ import { useRouter } from "vue-router"
                 method: 'GET',
                 headers: {"Authorization":token.value}
               })
+              .then(response => response.json())
+              .then(data => console.log(data))
             }
         }
         else{

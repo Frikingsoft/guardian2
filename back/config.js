@@ -21,7 +21,7 @@ servidor.use(cors()) // Usamos como middleware la funcion de cors
 servidor.use(express.json()) // Usamos como middleware la funcion de express json para que interprete los datos que vienen como json
 servidor.use(morgan("dev"))
 servidor.use(useragent.express());
-
+servidor.use("/empleado",express.static(path.join(__dirname, '../front/empleado/dist/spa')))
 servidor.get('/', (req, res) => {
     if (req.useragent.isMobile) {
         res.send('¡Hola! Parece que estás usando un dispositivo móvil.');
@@ -36,5 +36,6 @@ servidor.get('/', (req, res) => {
 
 export{
     servidor, // exportamos la variable del servidor
-    __dirname
+    __dirname,
+    
 }
