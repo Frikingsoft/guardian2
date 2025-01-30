@@ -6,13 +6,15 @@ import { config } from "dotenv" // importamos dotenv para las variables de entor
 import morgan from "morgan"
 import useragent from 'express-useragent'
 import path from "path"
+import conectarDB from "./db/db.js"
+
 //-----------------------------------------------------------------------------------
 config() // ejecutamos config
 const servidor = express() // ejecutamos la configuración de express
 servidor.listen(process.env.PORT) // El servidor va a estar escuchando en el puerto , en este caso la variable de entorno PORT
 const __filename = fileURLToPath(import.meta.url)// para obtener las rutas del archivo actual
 const __dirname = dirname(__filename) // para obtener las rutas del directorio actual
-
+conectarDB()
 //------------Middleware--------------------------------------
 servidor.use(cors()) // Usamos como middleware la funcion de cors
 

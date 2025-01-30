@@ -57,7 +57,12 @@ import { useRouter } from "vue-router"
         usuario.value = data.usuario
         token.value = data.token
         if(mensaje.value === "Acceso"){
-            router.push("/")
+            if(usuario.value.rol === "employee"){
+              fetch("http://localhost/empleado",{
+                method: 'GET',
+                headers: {"Authorization":token.value}
+              })
+            }
         }
         else{
             confirm.value = true

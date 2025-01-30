@@ -1,6 +1,6 @@
 import bcrypt from'bcryptjs'
 import employee from "../db/models/Employee.js"
-const controlador_login_empleado = async(req, res, next) => {
+const controlador_login = async(req, res, next) => {
     let { password, email } = req.body
        req.buscar_usuario = await employee.findOne({ email })
        if(req.buscar_usuario){
@@ -22,5 +22,5 @@ const comparar_contra =async(password,hash)=>{
 }
 
 export{
-    controlador_login_empleado
+    controlador_login
 }
