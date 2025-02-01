@@ -20,8 +20,8 @@ import { ref } from "vue";
 import { useRouter } from "vue-router"
 const employees = ref([])
 const router = useRouter()
-const enviar = () => {
-    fetch("http://localhost/employees", {
+const enviar = async () => {
+   await fetch("http://localhost/employees", {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

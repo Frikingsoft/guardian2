@@ -7,9 +7,9 @@ const login = (req,res)=>{
     delete usuario.num_employee
     delete usuario._id
     generar_token(usuario,process.env.secretKey,)
-    console.log(token)
-
-    res.status(200).json({ mensaje:"Acceso", usuario,token}) 
+    
+        res.status(200).json({ mensaje:"Acceso", usuario,token}) 
+    
 }
 const generar_token =(payload, secretKey, options = {expiresIn: '1d'})=>{
     token = jwt.sign(payload, secretKey, options);
