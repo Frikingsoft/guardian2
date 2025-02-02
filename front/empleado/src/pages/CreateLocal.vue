@@ -20,6 +20,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router"
 const name = ref("")
 const router = useRouter()
+
 const enviar = () => {
     let local = ref({
         name: name.value
