@@ -25,7 +25,6 @@ const server = http.createServer(servidor);
 const io = new Server(server, {
   cors: {
     origin: "*", // Ajustar en producción
-    methods: ["GET", "POST"]
     },
 });
 
