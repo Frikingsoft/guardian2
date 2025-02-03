@@ -44,7 +44,7 @@ import { useRouter } from "vue-router"
         email: email.value,
         password: password.value
     })     
-    fetch("http://localhost/login", {
+    fetch("http://localhost/loginAdmin", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

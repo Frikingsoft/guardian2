@@ -37,7 +37,7 @@
       </div>
       <div class="fondo_guardian">
         <img src="/imagenes/fondo.png" >
-        <h2> Administrador </h2>
+        
       </div>
      
       <router-view @click="abrir_menu = false"/>
