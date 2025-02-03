@@ -12,15 +12,23 @@
 </template>
 <script setup>
     import { ref } from 'vue'
+    import { io } from 'socket.io-client';
+
+    let socket = io('http://localhost/panel'); // Cambia la URL según tu configuración
+
+  socket.on('connect', () => {
+  console.log('Conectado a Socket.IO');
+});
     const fecha = ref(new Date)
     const eventos = ['2025-01-02', '2025-04-02']
     const local = ref([]) 
-    const locales = async()=>{
-        await fetch("http://localhost/panel")
-        .then(respuesta => respuesta.json())
-        .then(data => local.value = data.locales )
-    }
-    locales()
+   
+    socket.on("locales", (data) => {
+    console.log("Evento locales recibido:", data )
+    local.value = data;
+  })
+    
+    
 </script>
 
 <style scoped>

@@ -3,6 +3,8 @@ import cors from "cors" // importamos el modulo de cors para recibir peticiones 
 import { fileURLToPath } from "url" // para obtener las rutas del archivo actual
 import { dirname } from "path" // para obtener las rutas del directorio actual
 import { config } from "dotenv" // importamos dotenv para las variables de entorno
+import http from "http"
+import { Server } from "socket.io"
 import morgan from "morgan"
 import useragent from 'express-useragent'
 import path from "path"
@@ -18,6 +20,27 @@ servidor.listen(process.env.PORT) // El servidor va a estar escuchando en el pue
 const __filename = fileURLToPath(import.meta.url)// para obtener las rutas del archivo actual
 const __dirname = dirname(__filename) // para obtener las rutas del directorio actual
 conectarDB()
+
+const server = http.createServer(servidor);
+const io = new Server(server, {
+  cors: {
+    origin: "*", // Ajustar en producción
+    methods: ["GET", "POST"]
+    },
+});
+
+// Evento de conexión de socket
+io.on('connection', (socket) => {
+  console.log('Nuevo cliente conectado');
+
+  socket.on('disconnect', () => {
+    console.log('Cliente desconectado');
+  });
+});
+io.on('connect_error', (err) => {
+  console.error('Error de conexión:', err);
+});
+global.io = io;
 
 //------------Middleware--------------------------------------
 servidor.use(cors()) // Usamos como middleware la funcion de cors
@@ -40,5 +63,6 @@ servidor.get('/', (req, res) => {
 export{
     servidor, // exportamos la variable del servidor
     __dirname,
+    io,
    
 }

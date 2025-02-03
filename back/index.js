@@ -1,4 +1,4 @@
-import { servidor } from './config.js'
+import { servidor, io } from './config.js'
 import { inicio } from "./rutas/get/inicio.js"
 import { controlador_inicio } from "./middleware/controlador_inicio.js"
 import { login } from "./rutas/post/login.js"
